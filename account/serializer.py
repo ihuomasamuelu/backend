@@ -10,8 +10,12 @@ class userCreateSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
 
+        user = User.objects.filter(email=data['email']).first()
+
         if (data['first_name'] == "" or data['last_name'] == "" or data['email'] == ""):
-            raise ValueError("input fields can not be empty")
+            raise ValueError( "Input field cannot be empty")
+        elif user is not None:
+            raise ValueError("Email Already Exists")
         else:
             return data
         
@@ -55,5 +59,5 @@ class LoginSerializer(serializers.Serializer):
                 }
                 return data
             else:
-                raise ValueError("invalid credentials")
+                raise ValueError("Invalid Credentials")
        

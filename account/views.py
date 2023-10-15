@@ -27,7 +27,7 @@ def Signup(request):
 
     
     except BaseException as e:
-        return Response(str(e))
+        return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
 
 
 
